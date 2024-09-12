@@ -1,7 +1,7 @@
-import { Route, Routes } from 'react-router-dom';
 import { CampaignsPage } from '@/pages/CampaignsPage/CampaignsPage';
 import { DashBoard } from '@/pages/Dashboard/Dashboard';
 import { NotFound } from '@/pages/NotFound/NotFound';
+import { Route, Routes } from 'react-router-dom';
 
 export const AppRouter = () => {
   return (

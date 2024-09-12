@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { Loading } from '@/components/Loading/Loading';
 import { useFetchCampaigns } from '@/shared/hooks/useFetchCampaigns';
-import { ErrorMessage } from '@/components/ErrorMessage/ErrorMessage';
+import { ErrorMessage } from '@/components/Error/ErrorMessage';
 import './CampaignsPage.css';
 
 export const CampaignsPage = () => {
@@ -10,7 +10,7 @@ export const CampaignsPage = () => {
   const navigate = useNavigate();
 
   if (error) {
-    return <ErrorMessage error={error}/>;
+    return <ErrorMessage error={error} />;
   }
 
   if (loading) {

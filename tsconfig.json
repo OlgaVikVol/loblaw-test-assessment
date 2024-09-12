@@ -22,5 +22,5 @@
       "module": "CommonJS"
     }
   },
-  "include": ["./src/**/*.ts", "./src/**/*.tsx"]
+  "include": ["./src/**/*.ts", "./src/**/*.tsx", "vitest.setup.js", "src/shared/hooks/useFetchCampaigns.test.tsx"]
 }

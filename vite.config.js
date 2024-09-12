@@ -8,7 +8,11 @@ export default defineConfig({
     alias: [{ find: '@', replacement: '/src'}]
   },
   test: {
-    environment: "jsdom",
-    setupFiles: ["/src/test/vitest.setup.js"],
+    setupFiles: './vitest.setup.js', // Specify the path to your setup file
+    globals: true, // Enable global mode, which gives access to `describe`, `it`, `expect`, etc.
+    environment: 'jsdom', // Use jsdom for React component testing
+    coverage: {
+      reporter:['text', 'json', 'html'] // change this property to the desired output
+    },
   },
 });
