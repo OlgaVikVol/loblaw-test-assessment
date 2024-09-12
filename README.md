@@ -1,61 +1,112 @@
-# Instructions
-Please read this entire document before beginning your evaluation!
+## Overview
 
-This folder contains one directory for a simple node server (to generate
-consistent fake data), and another where you will write your front end React code. Please refer to the Readme files to get yourself started. Outlined below is the business case and objectives for the MVP that you will be creating for this technical evaluation.
+This is a React project built with TypeScript, Vite, and Vitest for testing. The project includes reusable components, pages, custom hooks, and a mock API to support testing and development.
 
-Feel free to be creative with this evaluation! Use any additional libraries or technologies that you are comfortable with. If you make certain assumptions
-about the design/data/objectives etc., please include comments to describe them so we can see your thought process.
+## Project Structure
 
-Please return your evaluation as directed and within the time frame specified in the email.
+```bash
+src/
+│
+├── assets/          # Static assets (images, icons, etc.)
+├── components/      # Reusable components
+│   ├── Error/       # Error message component and its styles/tests
+│   │   ├── ErrorMessage.tsx
+│   │   ├── ErrorMessage.test.tsx
+│   │   └── ErrorMessage.css
+│   ├── Loading/     # Loading spinner component with its styles/tests
+│   │   ├── Loading.tsx
+│   │   ├── Loading.test.tsx
+│   │   └── Loading.css
+│
+├── mocks/           # MSW Mock Handlers for API
+├── pages/           # Application pages
+│   ├── CampaignsPage/  # Displays a list of campaigns and handles navigation to Dashboard
+│   ├── Dashboard/      # Displays campaign statistics (e.g., clicks, impressions, CTR)
+│   └── NotFound/       # Displays 404 error for unavailable routes
+│
+├── routers/         # Application routing
+│   └── AppRouter.tsx   # Manages all the routes for the application
+│
+├── shared/          # Shared hooks and constants
+│   ├── consts/          # API constants (e.g., base URL, endpoints)
+│   │   └── api.ts
+│   ├── hooks/           # Custom hooks
+│   │   ├── useFetchCampaigns.ts         # Fetches list of campaigns from API
+│   │   ├── useFetchCampaigns.test.tsx   # Unit tests for useFetchCampaigns hook
+│   │   ├── useFetchDashboardData.ts     # Fetches and processes dashboard stats (impressions, clicks, etc.)
+│   │   ├── useFetchDashboardData.test.tsx  # Unit tests for useFetchDashboardData hook
+│   │   ├── useIterationNumber.ts        # Custom hook to handle iteration number for polling API
+│   │   └── useIterationNumber.test.tsx  # Unit tests for useIterationNumber hook
+│
+├── App.tsx          # Main Application Component
+├── App.css          # Global styles
+├── index.css        # Reset CSS / Global styles
+├── main.tsx         # Main entry point
+```
 
-Your submission will be evaluated based on code readability, best practices, style, design, correctness, and efficiency. Thank you, and good luck!
+## Pages
 
-## Business Case
-Your company uses external ad servers to manage and run the company’s online advertising campaigns. You are being asked to create an MVP web application (using React) that will provide your stakeholders the ability to view key performance metrics of each campaign.
+- **CampaignsPage**: 
+  - This page displays a list of available campaigns. Each campaign can be clicked to navigate to the corresponding Dashboard page that displays campaign-specific statistics.
+  - The page fetches data using the `useFetchCampaigns` hook.
+  
+- **Dashboard**: 
+  - This page displays detailed performance statistics for a selected campaign, including total impressions, clicks, CTR (Click Through Rate), and users.
+  - The page also includes a polling mechanism that updates stats at regular intervals using the `useIterationNumber` hook and fetches data using `useFetchDashboardData`.
+  
+- **NotFound**: 
+  - A simple 404 page that is displayed when a user navigates to an invalid or non-existent route.
 
-## MVP Objectives:
-1. Build a Campaign List Details
-    * API Endpoint: `/api/campaigns`
-        * Sample output: 
-        ```
-        [
-            {id: 1, name: "Red"},
-            {id: 2, name: "Blue"},
-        ] 
-        ```
-    * Should fetch the campaigns, list their ids and names
-    * Clicking either the id or the name should take you to the Dashboard for the campaign (i.e. with cid set to its id)
-1. Build a Dashboard to view performance metrics
-Details
-    * API Endpoint: `/api/campaigns/:cid?number=num`
-        1. cid is an id from campaign list
-        1. num is an int >= 0
-        * Sample output: 
-        ```
-        { impressions: 40, clicks: 50, users: 87 }
-        ```
-    * Dashboard should ping the server every 5 seconds to get new data for a given cid (clicked in the list).
-    * Start by passing a query param of number=0, and increment it for every ping.
-    * Dashboard should include tiles for:
-        1. Total Impressions
-        1. Total Clicks
-        1. CTR - Short for Click Through Rate, calculated ((Total Clicks / Total Impressions) * 100)
-        1. Total Users
-        1. Current Number (iteration/pull #)
-        1. Most Recent Impressions
-        1. Most Recent Clicks
-        1. Most Recent CTR
-        1. Most Recent Users
+## Components
 
-## MSW Mocking
-The API endpoints are already mocked for you using MSW. You will be able to see the data come back when you make a request to the endpoints above. You do not need an active network connection for the API calls to work as it will all work under this Vite application.
+- **ErrorMessage**: 
+  - A reusable component for displaying error messages, typically when an API call fails or some other error occurs. It receives an error string as a prop and displays it in a styled div.
 
-## Install all packages
+- **Loading**: 
+  - A reusable component for displaying a loading spinner when data is being fetched from the server. It provides feedback to the user while waiting for API responses.
+
+## Hooks
+
+- **useFetchCampaigns**:
+  - A custom hook that fetches a list of campaigns from the API. It manages the loading, error, and data states and returns an array of campaign objects.
+
+- **useFetchDashboardData**:
+  - A custom hook that fetches detailed campaign performance metrics for a specific campaign (e.g., clicks, impressions, CTR). It handles API calls, processes the data, and supports polling via iteration number.
+
+- **useIterationNumber**:
+  - This custom hook increments an iteration number at regular intervals, allowing for periodic polling of new data from the server. This is useful for continuously updating the dashboard stats.
+
+## Testing
+
+### Overview
+
+The project includes unit tests for all core functionality, ensuring the app behaves as expected under different conditions. All tests are written using the `@testing-library/react` along with Vitest as the test runner.
+
+The test files are co-located with their respective components or hooks, making it easier to understand what part of the application each test is validating. Each feature of the app has corresponding unit tests.
+
+### Test Coverage
+
+The test coverage for this project is quite comprehensive, as seen in the screenshot below.
+
+![Test Coverage Report](src/assets/coverage-report.png)
+
+- **Statements Coverage**: 44.67%
+- **Branches Coverage**: 84.44%
+- **Functions Coverage**: 56.52%
+- **Lines Coverage**: 44.67%
+
+The coverage reports are generated using Vitest with the coverage option.
+
+## Getting Started
+
+### Install all packages
 > `npm install`
 
-## Running the Server 
+### Running the Server 
 > `npm start`
 
-## Running Unit Tests
+### Running Unit Tests
 > `npm test`
+
+### Generating test coverage reports
+`npm coverage`
