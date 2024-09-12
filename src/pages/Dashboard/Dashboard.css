@@ -1,0 +1,86 @@
+/* General styling for the dashboard page */
+.dashboard-page {
+  font-family: 'Arial', sans-serif;
+  max-width: 100%;
+  padding: 20px;
+  background-color: #f9fafb;
+  border-radius: 6px; 
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03); 
+  min-height: 100vh; 
+}
+
+/* Wrapper for the entire dashboard content */
+.dashboard-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 8px; 
+  padding: 20px; 
+  background-color: white;
+  border-radius: 6px; 
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+}
+
+/* Dashboard tile styles */
+.dashboard-title {
+  background-color: #fff;
+  padding: 8px 10px; 
+  border-radius: 4px; 
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03); 
+  transition: all 0.2s ease;
+  text-align: center;
+}
+
+.dashboard-title h4 {
+  margin: 0;
+  font-size: 0.9rem; 
+  color: #333;
+}
+
+.dashboard-title p {
+  font-size: 1rem; 
+  color: #007bff;
+  font-weight: bold;
+}
+
+/* Hover effect for dashboard tiles */
+.dashboard-title:hover {
+  background-color: #f0f8ff;
+  transform: translateY(-1px); 
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05); 
+}
+
+/* Dashboard grid for organizing tiles */
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 6px; 
+}
+
+/* Dashboard row */
+.dashboard-row {
+  display: flex;
+  flex-direction: column;
+  gap: 8px; 
+}
+
+/* Dashboard iteration specific styling */
+.dashboard-iteration {
+  background-color: #fffbf0;
+  border-left: 4px solid #ff9800; 
+}
+
+/* Total section heading */
+.dashboard-row h3 {
+  font-size: 1rem;
+  margin-bottom: 4px;
+  color: #333;
+}
+
+/* Responsive design: Adjust the grid to one column on small screens */
+@media (max-width: 768px) {
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+

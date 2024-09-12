@@ -1,0 +1,26 @@
+/* Main container for the NotFound page */
+.not-found-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: #f9fafb;
+  text-align: center;
+  color: #333;
+}
+
+/* Styling for the 404 title */
+.not-found-container h1 {
+  font-size: 6rem;
+  font-weight: bold;
+  color: #007bff;
+  margin: 0;
+}
+
+/* Styling for the "Page not found" message */
+.not-found-container p {
+  font-size: 1.5rem;
+  margin-top: 10px;
+  color: #666;
+}
